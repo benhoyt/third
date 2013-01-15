@@ -554,7 +554,7 @@ probably work on CONSTANTs, VARIABLEs, DEFERs, but do funny things
 with colon definitions. >BODY works well on CREATEd words, VARIABLEs,
 VALUEs, and DEFERs.
 
-# #S HOLD or SIGN used outside a <# ... #> sequence: you can expect
+\# #S HOLD or SIGN used outside a <# ... #> sequence: you can expect
 weird happenings if you do weird things like this! :-)
 
 When d is outside the range of n in D>S: result is truncated.
