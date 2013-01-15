@@ -511,7 +511,7 @@ interpreted.
 Using a zero length string as a name causes the interpreter to abort
 with an appropriate error message.
 
->IN greater than the size of the input buffer: probably a -13 THROW.
+\>IN greater than the size of the input buffer: probably a -13 THROW.
 
 RECURSE appearing after DOES>: probable crash when word is executed.
 
@@ -549,7 +549,7 @@ String longer than counted string returned by WORD: PAD overwritten.
 When u is greater than or equal to the number of bits in a cell for
 LSHIFT or RSHIFT: unexpected results.
 
->BODY or DOES> applied to a word not defined with CREATE: DOES> will
+\>BODY or DOES> applied to a word not defined with CREATE: DOES> will
 probably work on CONSTANTs, VARIABLEs, DEFERs, but do funny things
 with colon definitions. >BODY works well on CREATEd words, VARIABLEs,
 VALUEs, and DEFERs.
