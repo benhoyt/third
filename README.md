@@ -3,9 +3,9 @@ Third, a small Forth compiler for 8086 DOS
 
 **Historical note:** I wrote this in 1998 (when I was 16), so I'm just putting
 it up here as a backup and for "historical interest". It's still a pretty good
-show-case for how simple a
+show-case for how simple a self-hosting
 [Forth](http://en.wikipedia.org/wiki/Forth_%28programming_language%29)
-compiler is.
+compiler can be.
 
 I wrote it more or less all myself (though parts of the assembler were pretty
 much copied, I think :-), but it's loosely based on
