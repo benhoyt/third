@@ -1,0 +1,18 @@
+Things to do on the Third compiler:
+-----------------------------------
+
+BUGS
+  * LENGTH will include the CR in the line length if you have a string like
+    "asdf\0D", ie., with just a CR on the end (if your buffer isn't quite
+    big enough for the LF say)
+  * READ-LINE can return more than u1 characters (ie., u2>u1) if the line
+    is longer than u1+2 chars or if there is an LF at (zero-based) position
+    u1+1
+
+
+TODO
+  * memory allocation wordset, maybe when I need them
+  * block wordset should be coded, unlikely I ever will... :-)
+  * floating wordset, do we need 'em for this small Forth?
+  * locals wordset, ditto
+  * the programming tools word EDITOR is missing

@@ -1,0 +1,753 @@
+ Quick reference help file
+
+ Use mQuick.Bat to re-index this file if changes are made.
+ Blank lines and indented lines at the beginning of the file are ignored.
+ Any non-indented line denotes the start of a new quick reference word.
+ The format of each quick reference word in this file is:
+
+ WORD           pronunciation           stack diagram
+ Comments.
+
+!               store                   x a-addr --
+ Store x at a-addr.
+#               number                  ud1 -- ud2
+ Convert and HOLD lowest digit of ud1 according to BASE.
+#>              stop-number             xd -- c-addr u
+ End number conversion process and return string of all HOLDed chars.
+#S              number-s                ud -- 0.
+ Convert and HOLD all digits of ud.
+'               tick                    "<spaces>name" -- xt
+ Parse name and return its execution token.
+(               paren                   "ccc<paren>" --
+ Parse ccc till ')' and discard (used for comments).
+*               star                    n1|u1 n2|u2 -- n3|u3
+ Multiply n1|u1 by n2|u2 giving n3|u3.
+*/              star-slash              n1 n2 n3 -- n4
+ Multiply n1 by n2 giving temp d, divide by n3 giving n4.
+*/MOD           star-slash-mod          n1 n2 n3 -- n4 n5
+ Multiply n1 by n2 giving temp d, divide by n3 to give rem n4 and quo n5.
++               plus                    n1|u1 n2|u2 -- n3|u3
+ Add n1|u1 to n2|u2 giving n3|u3.
++!              plus-store              n|u a-addr --
+ Add n|u to contents of cell at a-addr.
++LOOP           plus-loop               do-sys --
+ End a DO...+LOOP construct, removing do-sys from the stack.
+,               comma                   x --
+ Compile x to data space.
+-               minus                   n1|u1 n2|u2 -- n3|u3
+ Subtract n2|u2 from n1|u1 giving n3|u3.
+.               dot                     n --
+ Display n in current BASE followed by a space.
+."              dot-quote               "ccc<quote>" --
+ Parse and compile ccc till '"' and display ccc at runtime.
+/               slash                   n1 n2 -- n3
+ Divide n1 by n2 giving quotient n3.
+/MOD            slash-mod               n1 n2 -- n3 n4
+ Divide n1 by n2 giving remainder n3 and n4.
+0<              zero-less               n -- flag
+ Flag is true if n is less than zero (negative).
+0=              zero-equals             x -- flag
+ Flag is true if x is bit-for-bit equal to zero.
+1+              one-plus                n1|u1 -- n2|u2
+ Add one to n1|u1 giving n2|u2.
+1-              one-minus               n1|u1 -- n2|u2
+ Subtract one from n1|u2 giving n2|u2.
+2!              two-store               x1 x2 a-addr --
+ Store x2 at a-addr and x1 in the next memory cell.
+2*              two-star                x1 -- x2
+ Multiply x1 by 2 giving x2 (by zero filled bit shifting to the left).
+2/              two-slash               x1 -- x2
+ Divide x1 by 2 giving x2 (by sign filled bit shifting to the right).
+2@              two-fetch               a-addr -- x1 x2
+ Fetch x2 from a-addr and x1 from the next memory cell.
+2DROP           two-drop                x1 x2 --
+ Drop cell pair x1 x2 from stack.
+2DUP            two-dupe                x1 x2 -- x1 x2 x1 x2
+ Duplicate cell pair x1 x2.
+2OVER           two-over                x1 x2 x3 x4 -- x1 x2 x3 x4 x1 x2
+ Copy cell pair x1 x2 over cell pair x3 x4.
+2SWAP           two-swap                x1 x2 x3 x4 -- x3 x4 x1 x2
+ Swap cell pairs x1 x2 and x3 x4.
+:               colon                   "<spaces>name" -- colon-sys
+ Begin a colon definition called "name" and start compiling.
+;               semicolon               colon-sys
+ End current colon definition and allow it to be found in the dictionary.
+<               less-than               n1 n2 -- flag
+ Flag is true if n1 is less than n2.
+<#              start-number            --
+ Begin number conversion process (set up the HOLD buffer).
+=               equals                  x1 x2 -- flag
+ Flag is true if x1 is bit-for-bit equal to x2.
+>               greater-than            n1 n2 -- flag
+ Flag is true if n1 is greater than n2.
+>BODY           to-body                 xt -- a-addr
+ Return the data address of CREATEd xt (execution token).
+>IN             to-in                   -- a-addr
+ Return cell pointer to the parsing offset in the input buffer.
+>NUMBER         to-number               ud1 c-addr1 u1 -- ud2 c-addr2 u2
+ Convert string c-addr1 u1 to binary with BASE, adding digits to ud1.
+>R              to-r                    x -- \ -- x
+ Move x from the data stack to the return stack.
+?DUP            question-dupe           x -- 0 | x x
+ Duplicate x if it is nonzero.
+@               fetch                   a-addr -- x
+ Fetch x from a-addr.
+ABORT           abort                   i*x -- \ j*x --
+ Empty the data stack and QUIT, which empties the return stack.
+ABORT"          abort-quote             "ccc<quote>" --
+ Parse and compile ccc, display and abort at runtime if TOS is nonzero.
+ABS             abs                     n -- +n
+ Return the absolute value of n.
+ACCEPT          accept                  c-addr +n1 -- +n2
+ Receive at most +n1 chars from keyboard to c-addr, +n2 is # actually received.
+ALIGN           align                   --
+ Align the data space pointer (HERE).
+ALIGNED         aligned                 addr -- a-addr
+ Return the first aligned address greater than or equal to addr.
+ALLOT           allot                   n --
+ Allot n bytes of data space. If n is negative, data space is freed.
+AND             and                     x1 x2 -- x3
+ Return the bit-by-bit logical "and" of x1 with x2.
+BASE            base                    -- a-addr
+ Return cell pointer of the number conversion BASE.
+BEGIN           begin                   -- dest
+ Begin a BEGIN...UNTIL or BEGIN...WHILE...REPEAT loop.
+BL              b-l                     -- char
+ Return the character value of a space (BLank).
+C!              c-store                 char c-addr --
+ Store char at c-addr.
+C,              c-comma                 char --
+ Compare char to data space.
+C@              c-fetch                 c-addr -- char
+ Fetch char from c-addr.
+CELL+           cell-plus               a-addr1 -- a-addr2
+ Add the size of a cell in bytes to a-addr1 giving a-addr2.
+CELLS           cells                   n1 -- n2
+ Return the size of n1 cells in bytes.
+CHAR            char                    "<spaces>name" -- char
+ Parse name and return the value of its first character.
+CHAR+           char-plus               c-addr1 -- c-addr2
+ Add the size of a character in bytes to c-addr1 giving c-addr2.
+CHARS           chars                   n1 -- n2
+ Return the size of n1 characters in bytes.
+CONSTANT        constant                x "<spaces>name" --
+ Create a constant called "name" which will return x when executed.
+COUNT           count                   c-addr1 -- c-addr2 u
+ Return addr of first character in, and length of, counted string at c-addr1.
+CR              c-r                     --
+ Cause subsequent display to appear at the beginning of the next line.
+CREATE          create                  "<spaces>name" --
+ Create a word called "name" which will return its data address when executed.
+DECIMAL         decimal                 --
+ Set the number conversion BASE (radix) to decimal.
+DEPTH           depth                   -- +n
+ Return the number of cells on the stack before +n was pushed.
+DO              do                      -- do-sys
+ Begin a DO...LOOP construct, placing do-sys on the stack.
+DOES>           does                    colon-sys1 -- colon-sys2
+ Give most recently CREATEd word the following execution semantics.
+DROP            drop                    x --
+ Drop x from the stack.
+DUP             dupe                    x -- x x
+ Duplicate x.
+ELSE            else                    orig1 -- orig2
+ Begin an ELSE...THEN clause.
+EMIT            emit                    char --
+ Display the character char. EMITting control characters is non-Standard.
+ENVIRONMENT?    environment-query       c-addr u -- false | i*x true
+ Return info i*x about environment query c-addr u or false if not found.
+EVALUATE        evaluate                i*x c-addr u -- j*x
+ Store -1 in SOURCE-ID and interpret string c-addr u (input source is saved).
+EXECUTE         execute                 i*x xt -- j*x
+ Execute the execution token xt. Other stack effects are due to word executed.
+EXIT            exit                    -- \ nest-sys --
+ Exit from the current colon definition.
+FILL            fill                    c-addr u char --
+ Fill u characters starting at c-addr with char.
+FIND            find                    c-addr -- c-addr 0 | xt 1 | xt -1
+ Search for counted str c-addr: c-addr 0 not found, xt 1 immediate, else xt -1.
+FM/MOD          f-m-slash-mod           d n1 -- n2 n3
+ Divide d by n1 using floored division giving remainder n2 and quotient n3.
+HERE            here                    -- addr
+ Return the data space pointer.
+HOLD            hold                    char --
+ Add one char to HOLD number conversion buffer. See /HOLD environment query.
+I               i                       -- n|u
+ Return the current (ie., innermost) loop index.
+IF              if                      -- orig
+ Begin an IF...THEN or IF...ELSE...THEN conditional.
+IMMEDIATE       immediate               --
+ Make the most recent definition an immediate word.
+INVERT          invert                  x1 -- x2
+ Invert all bits of x1 giving its logical inverse x2.
+J               j                       -- n|u
+ Return the previous (ie., next innermost) loop index.
+KEY             key                     -- char
+ Wait for and return one keyboard character.
+LEAVE           leave                   -- \ loop-sys --
+ Exit the current DO...LOOP and continue execution just after the LOOP.
+LITERAL         literal                 x --
+ Compile x so that it will be pushed on stack at runtime. LITERAL is immediate.
+LOOP            loop                    do-sys
+ End a DO...LOOP construct, removing do-sys from the stack.
+LSHIFT          l-shift                 x1 u -- x2
+ Shift x1 to the left u times giving x2. Vacant bits are zero-filled.
+M*              m-star                  n1 n2 -- d
+ Multiply n1 by n2 giving signed double d.
+MAX             max                     n1 n2 -- n3
+ Return the greater of n1 and n2.
+MIN             min                     n1 n2 -- n3
+ Return the lesser of n1 and n2.
+MOD             mod                     n1 n2 -- n3
+ Divide and n1 by n2 giving the remainder n3.
+MOVE            move                    addr1 addr2 u --
+ Move u bytes of data from addr1 to addr2. Overlap is handled properly.
+NEGATE          negate                  n1 -- n2
+ Negate n1, giving its arithmetic inverse n2.
+OR              or                      x1 x2 -- x3
+ Return the bit-by-bit logical "inclusive or" of x1 with x2.
+OVER            over                    x1 x2 -- x1 x2 x1
+ Pull x1 over x2 leaving the original.
+POSTPONE        postpone                "<spaces>name" --
+ Parse and postpone name's compilation semantics.
+QUIT            quit                    -- \ i*x --
+ Empty the return stack, store zero in SOURCE-ID, and begin interpreting.
+R>              r-from                  -- x \ x --
+ Move x from the return stack to the data stack.
+R@              r-fetch                 -- x \ x -- x
+ Fetch a copy of x from the return stack.
+RECURSE         recurse                 --
+ Recurse into the start of the current definition at runtime.
+REPEAT          repeat                  orig dest --
+ End a BEGIN...WHILE...REPEAT loop.
+ROT             rote                    x1 x2 x3 -- x2 x3 x1
+ Rotate x1, the third item on the stack, to the top.
+RSHIFT          r-shift                 x1 u -- x2
+ Shift x1 to the right u times giving x2. Vacant bits are zero-filled.
+S"              s-quote                 "ccc<quote>" --
+ Parse and compile ccc and return string descriptor c-addr u at runtime.
+S>D             s-to-d                  n -- d
+ Convert signed single to signed double.
+SIGN            sign                    n --
+ HOLD a sign (ie., a '-' character) if n is negative.
+SM/REM          s-m-slash-rem           d n1 -- n2 n3
+ Divide d by n1 using symmetric division giving remainder n2 and quotient n3.
+SOURCE          source                  -- c-addr u
+ Return the address and number of characters in the input buffer.
+SPACE           space                   --
+ Display one space.
+SPACES          spaces                  n --
+ If n is greater than zero display n spaces.
+STATE           state                   -- a-addr
+ Return a cell pointer to the compilation flag, true if compiling, else false.
+SWAP            swap                    x1 x2 -- x2 x1
+ Swap x1 and x2.
+THEN            then                    orig --
+ End an IF...THEN or IF...ELSE...THEN conditional.
+TYPE            type                    c-addr u --
+ Display string c-addr u.
+U.              u-dot                   u --
+ Display u in current BASE followed by a space.
+U<              u-less-than             u1 u2 -- flag
+ Return true if u1 is less than u2.
+UM*             u-m-star                u1 u2 -- ud
+ Multiply u1 by u2 giving unsigned double ud.
+UM/MOD          u-m-slash-mod           ud u1 -- u2 u3
+ Divide ud by u1 giving remainder u2 and quotient u3.
+UNLOOP          unloop                  -- \ loop-sys --
+ Remove current DO...LOOP parameters but do not exit the loop.
+UNTIL           until                   dest --
+ End a BEGIN...UNTIL loop.
+VARIABLE        variable                "<spaces>name" --
+ Create "name" (which will return data address at runtime) and allot one cell.
+WHILE           while                   dest -- orig dest
+ Begin a WHILE...REPEAT clause.
+WORD            word                    char "<chars>ccc<char>" -- c-addr
+ Skip leading chars, parse ccc delimited by char. Return parsed counted string.
+XOR             x-or                    x1 x2 -- x3
+ Return the bit-by-bit logical "eXclusive or" of x1 with x2.
+[               left-bracket            --
+ Enter interpretation state. [ is immediate.
+[']             bracket-tick            "<spaces>name" --
+ Parse name and return its execution token at runtime.
+[CHAR]          bracket-char            "<spaces>name" --
+ Parse name and return the value of its first character at runtime.
+]               right-bracket           --
+ Enter compilation state.
+
+#TIB            number-t-i-b            -- a-addr
+ Return cell pointer to the number of character in the input buffer.
+.(              dot-paren               "ccc<paren>" --
+ Parse ccc till ')' and display it. .( is immediate.
+.R              dot-r                   n1 n2 --
+ Display n1 in a right-aligned field of spaces n2 wide.
+0<>             zero-not-equals         x -- flag
+ Flag is true if any bit of x is not equal to zero.
+0>              zero-greater            n -- flag
+ Flag is true if n is greater than zero (positive).
+2>R             two-to-r                x1 x2 -- \ -- x1 x2
+ Move cell pair x1 x2 from the data stack to the return stack.
+2R>             two-r-from              -- x1 x2 \ x1 x2 --
+ Move cell pair x1 x2 from the return stack to the data stack.
+2R@             two-r-fetch             -- x1 x2 \ x1 x2 -- x1 x2
+ Fetch a copy of cell pair x1 x2 from the return stack.
+:NONAME         colon-no-name           -- xt colon-sys
+ Begin an un-named colon definition (after ; its xt will still be on stack).
+<>              not-equals              x1 x2 -- flag
+ Flag is true if x1 is not equal to x2.
+?DO             question-do             -- do-sys
+ Begin a ?DO...LOOP construct, placing do-sys on the stack.
+AGAIN           again                   dest --
+ End a BEGIN...AGAIN loop (unconditional loop).
+C"              c-quote                 "ccc<quote>" --
+ Parse string ccc and return counted string address at runtime.
+CASE            case                    -- case-sys
+ Begin a CASE...ENDCASE structure.
+COMPILE,        compile-comma           xt --
+ Compile code to execute execution token.
+CONVERT         convert                 ud1 c-addr1 -- ud2 c-addr2
+ Convert counted string c-addr1 to binary with BASE, adding digits to ud1.
+ENDCASE         end-case                case-sys --
+ End a CASE...ENDCASE structure.
+ENDOF           end-of                  case-sys1 of-sys -- case-sys2
+ End an OF...ENDOF clause.
+ERASE           erase                   addr u --
+ Fill u bytes of data starting at addr with zeroes.
+EXPECT          expect                  c-addr +n --
+ Receive at most +n chars to c-addr. Store # chars actually received in SPAN.
+FALSE           false                   -- false
+ Return a false flag.
+HEX             hex                     --
+ Set the number conversion BASE (radix) to hexadecimal.
+MARKER          marker                  "<spaces>name" --
+ Create "name" to forget words back to and including "name" when executed.
+NIP             nip                     x1 x2 -- x2
+ Discard x1, the second-to-top item on the stack.
+OF              of                      -- of-sys
+ Begin an OF...ENDOF clause.
+PAD             pad                     -- c-addr
+ Return the address of a temporary scratch buffer. See /PAD environment query.
+PARSE           parse                   char "ccc<char>" -- c-addr u
+ Parse ccc delimited by char and return string c-addr u inside input buffer.
+PICK            pick                    xu .. x1 x0 u -- xu .. x1 x0 u
+ Pick uth item (zero based) to top of stack.
+QUERY           query                   --
+ Refill the input buffer from the user input device (keyboard).
+REFILL          refill                  -- flag
+ Refill the input buffer from the current input source, flag true if success.
+RESTORE-INPUT   restore-input           xn .. x1 n -- flag
+ Restore input source as saved by SAVE-INPUT, flag true if cannot restore.
+ROLL            roll                    xu xu-1 .. x0 u -- xu-1 .. x0 xu
+ Rotate u+1 items on the stack so xu is on top.
+SAVE-INPUT      save-input              -- xn .. x1 n
+ Save the current input source xn .. x1 on the stack, n is # of cells pushed.
+SOURCE-ID       source-i-d              -- -1 | 0 | fileid
+ Return the input source id: -1 = EVALUATE, 0 = keyboard, fileid = text file.
+SPAN            span                    -- a-addr
+ Return cell pointer to # of chars received by last execution of EXPECT.
+TIB             t-i-b                   -- c-addr
+ Return the address of the first character in the input buffer.
+TO              to                      x "<spaces>name" --
+ Store x in contents of VALUE "name" at runtime.
+TRUE            true                    -- true
+ Return a true flag.
+TUCK            tuck                    x1 x2 -- x2 x1 x2
+ Tuck x2 underneath second item x1.
+U.R             u-dot-r                 u n --
+ Display u in a right-aligned field of spaces n wide.
+U>              u-greater-than          u1 u2 -- flag
+ Flag is true if u1 is greater than u2.
+UNUSED          unused                  -- u
+ Return the number of bytes of unused HERE space (data space).
+VALUE           value                   x "<spaces>name" --
+ Create a value called "name" which will return x when executed.
+WITHIN          within                  n1|u1 n2|u2 n3|u3 -- flag
+ Return true if n2|u2 <= n1|u1 < n3|u3.
+[COMPILE]       bracket-compile         "<spaces>name" --
+ Parse name and compile code to execute it at runtime. [COMPILE] is immediate.
+\               backslash               "ccc<eol>" --
+ Parse and discard till end of line (input buffer). Used for a comment.
+
+$               hex-number              "<spaces>ccc" -- n|u|d|ud
+ Parse ccc and convert to binary in HEX, returning value at runtime.
+.D              dot-d                   n --
+ Display n in decimal, leaving BASE unchanged.
+.WID            dot-wid                 wid --
+ Display the vocabulary name of wordlist wid or "???" if it has no name.
+>UPPER          to-upper                char1 -- char2
+ Convert character char1 to uppercase char2.
+`               character               "<spaces>name" -- char
+ Parse name and return the value of its first character at runtime.
+ADDR            addr                    "<spaces>name" -- a-addr
+ Parse name and return its data address.
+ADDR>           addr-of                 "<spaces>name" -- a-addr
+ Parse name and return its data address at runtime.
+ANEW            a-new                   "<spaces>name" --
+ If "name" already exists execute it, otherwise create a MARKER called "name".
+BOOTER          booter                  i*x -- j*x
+ DEFERred word to execute when Third boots (for turnkey applications).
+CHAINED         chained                 "<spaces>name" --
+ COMPILE, DEFER name's execution token and set its xt to xt of current word.
+CS@             c-s-fetch               -- seg
+ Return the Third code segment (also data and stack) pointer.
+DEFER           defer                   "<spaces>name"
+ Create a DEFERred word "name" which will execute its xt at runtime. See IS.
+DETAB           de-tab                  c-addr u --
+ Replace each tab character in string c-addr u with a space character.
+END-CODE        end-code                --
+ End a CODE definition.
+END-MACRO       end-macro               wid --
+ End an assembler macro definition.
+GET-XY          get-x-y                 -- u1 u2
+ Get the current text cursor position (zero based): u1 = column, u2 = row.
+IS              is                      xt "<spaces>name" --
+ Store xt in contents of DEFERred word "name" at runtime.
+IS?             what-is                 xt1 -- xt2
+ Return DEFERred word xt1's current execution token xt2.
+L!              l-store                 seg ofs x --
+ Store x at far seg:ofs.
+L@              l-fetch                 seg ofs -- x
+ Fetch x from far seg:ofs
+LC!             l-c-store               seg ofs char --
+ Store char at far seg:ofs.
+LC@             l-c-fetch               seg ofs -- char
+ Fetch char from far seg:ofs.
+LENGTH          length                  c-addr u1 -- u2 u3
+ Return length u3 of the first line in c-addr u1, and # of delimiters u2.
+LFILL           l-fill                  seg ofs u char --
+ Fill u characters at far seg:ofs with character char.
+LMOVE           l-move                  seg1 ofs1 seg2 ofs2 u --
+ Move u bytes from seg1:ofs1 to seg2:ofs2. No overlap handling.
+M*/MOD          m-star-slash-mod        d1 n1 +n2 -- n3 d2
+ Multiply d1 by n1 giving temp triple, divide by +n2 to give rem n3 and quo d2.
+MACRO           macro                   "<spaces>name" -- wid
+ Begin an assembler macro called "name".
+NAME            name                    "<spaces>name" -- c-addr u
+ Parse "name" bounded by spaces and return string, if length is zero THROW -16.
+NONSENSE        nonsense                --
+ Set string compare (in searches, S= and COMPARE) to case INsensitive.
+NUMBER?         number-q                c-addr u -- x false | xd true
+ Convert c-addr u to number x|xd with BASE, THROW -13 if not a number.
+P!              p-store                 x u --
+ Write x to port u.
+P@              p-fetch                 u -- x
+ Read x from port u.
+PAGER           pager                   --
+ Do a CR and wait for key with message if at end of screen and PAGING is true.
+PAGINATE        paginate                --
+ Initialise PAGER.
+PAGING          paging                  -- a-addr
+ Return cell pointer to flag which is true if PAGER should paginate.
+PARSE-WORD      parse-word              "<spaces>name" -- c-addr u | c-addr 0
+ Parse "name" bounded by spaces and return parsed string inside input buffer.
+PC!             p-c-store               char u --
+ Write char to port u.
+PC@             p-c-fetch               u -- char
+ Read char from port u.
+PLACE           place                   c-addr1 u c-addr2
+ Place string c-addr1 u as counted string at c-addr2. Handles overlap.
+QUICK           quick                   "<spaces>name ... name ... <eol>" --
+ Display quick reference help for all given names.
+QUICKY          quicky                  c-addr u -- flag
+ Display quick reference help for name c-addr u, flag false if name not found.
+RP!             r-p-store               a-addr --
+ Set the return stack pointer to the given aligned address.
+RP0             r-p-zero                -- a-addr
+ Return the address of the bottom of the return stack.
+RP@             r-p-fetch               -- a-addr
+ Fetch the return stack pointer.
+S,              s-comma                 c-addr u --
+ Compile string c-addr u to data space as a counted string.
+S=              s-equals                c-addr1 c-addr2 u -- -1 | 0 | 1
+ Compare string c-addr1 u to c-addr2 u: -1 less than, 0 equal, 1 greater than.
+SALL            search-all              c-addr u -- c-addr u 0 | xt 1 | xt -1
+ Search order for name c-addr u: c-addr u 0 not found, xt 1 immed, else xt -1.
+SAVE            save                    "<spaces>name" --
+ Save Third system as a COM file with parsed filename "name".
+SAVED           saved                   c-addr u --
+ Save Third system as a COM file with filename c-addr u.
+SEE-XT          see-x-t                 xt --
+ Decompile and display definition of xt, which must not be :NONAMEd.
+SENSE           sense                   --
+ Set string compare (in searches, S= and COMPARE) to case sensitive.
+SENSITIVE       sensitive               -- flag
+ Return true if string comparing is case sensitive (in SENSE mode).
+SHELL           shell                   c-addr u1 -- u2 ior
+ DOS shell to COMSPEC with command tail c-addr u1, u2 is error-level.
+SKIP            skip                    char "<chars>" --
+ Parse and discard any "char"s in the input buffer.
+SP!             s-p-store               a-addr --
+ Set the data stack pointer to the given aligned address.
+SP0             s-p-zero                -- a-addr
+ Return the address of the bottom of the data stack.
+SP@             s-p-fetch               -- a-addr
+ Fetch the data stack pointer.
+SPAWN           spawn                   c-addr1 u1 c-addr2 u2 -- u3 ior
+ DOS shell program c-addr1 u1 with command tail c-addr2 u2, u3 is error-level.
+THROW-MSG       throw-message           n -- c-addr u
+ Return internal error message for THROW code n. u is zero if we don't know.
+UD.             u-d-dot                 ud --
+ Display ud in current BASE followed by a space.
+UD.R            u-d-dot-r               ud n --
+ Display ud in a right-aligned field of spaces n wide.
+VOCABULARY      vocabulary              "<spaces>name" --
+ Create named vocabulary, "name" will replace top wid of CONTEXT with its wid.
+WARNINGS        warnings                -- a-addr
+ Return a cell pointer to the "redefinition warnings" flag.
+WIDS            wids                    wid --
+ Display names and count of all words in wordlist identified by wid.
+
+2CONSTANT       two-constant            x1 x2 "<spaces>name" --
+ Create a constant "name". Return cell pair x1 x2 when "name" executed.
+2LITERAL        two-literal             x1 x2 --
+ Compile pair x1 x2, which will be returned at runtime. 2LITERAL is immediate.
+2VARIABLE       two-variable            "<spaces>name" --
+ Create "name" (which will return data address at runtime) and allot two cells.
+D+              d-plus                  d1|ud1 d2|ud2 -- d3|ud3
+ Add d1|ud1 to d2|ud2 giving d3|ud3.
+D-              d-minus                 d1|ud1 d2|ud2 -- d3|ud3
+ Subtract d2|ud2 from d1|ud1 giving d3|ud3.
+D.              d-dot                   d --
+ Display d in current BASE followed by a space.
+D.R             d-dot-r                 d n --
+ Display d in a right-aligned field of spaces n wide.
+D0<             d-zero-less             d -- flag
+ Return true if d is less than zero.
+D0=             d-zero-equals           xd -- flag
+ Return true if d is bit-for-bit equal to zero.
+D2*             d-two-star              xd1 -- xd2
+ Multiply xd1 by 2 giving xd2 (by zero filled bit shifting to the left).
+D2/             d-two-slash             xd1 -- xd2
+ Divide xd1 by 2 giving xd2 (by sign filled bit shifting to the right).
+D<              d-less-than             d1 d2 -- flag
+ Return true if d1 is less than d2.
+D=              d-equals                xd1 xd2 -- flag
+ Return true if xd1 is bit-for-bit equal to xd2.
+D>S             d-to-s                  d -- n
+ Convert signed double d to single n. Ambigious condition if d won't fit in n.
+DABS            d-abs                   d -- +d
+ Return the absolute value of d.
+DMAX            d-max                   d1 d2 -- d3
+ Return the greater of d1 and d2.
+DMIN            d-min                   d1 d2 -- d3
+ Return the lesser of d1 and d2.
+DNEGATE         d-negate                d1 -- d2
+ Negate d1, giving its arithmetic inverse d2.
+M*/             m-star-slash            d1 n1 +n2 -- d2
+ Multiply d1 by n1 giving temp triple, divide by +n2 to give quotient d2.
+M+              m-plus                  d1|ud2 n -- d2|ud2
+ Add signed single n to d1|ud1 giving d2|ud2.
+
+2ROT            two-rote                x1 x2 x3 x4 x5 x6 -- x3 x4 x5 x6 x1 x2
+ Rotate x1 x2, the third cell pair on the stack, to the top.
+DU<             d-u-less-than           ud1 ud2 -- flag
+ Return true if ud1 is less than ud2.
+
+CATCH           catch                   i*x xt -- j*x 0 | i*x n
+ Execute xt. If a THROW was executed, restore stacks and return n, else j*x 0.
+THROW           throw                   k*x 0 -- k*x | k*x n -- i*x n
+ If n is nonzero, transfer control to just after the last CATCH.
+
+AT-XY           at-x-y                  u1 u2 --
+ Set the text cursor position to column u1 and row u2 (zero based).
+KEY?            key-question            -- flag
+ Return true if a keyboard character is available.
+PAGE            page                    --
+ Clear the screen and position the text cursor at the top/left corner.
+
+EKEY            e-key                   -- u
+ Wait for and return one keyboard event u.
+EKEY>CHAR       e-key-to-char           u -- u false | char true
+ Try to convert keyboard event u to char, if ok return char true, else u false.
+EKEY?           e-key-question          -- flag
+ Return true if a keyboard event is available.
+EMIT?           emit-question           -- flag
+ Return true if output device is ready to accept data. (Always true in Third).
+MS              m-s                     u --
+ Wait at least u milleseconds. Resolution of timer is implementation specific.
+TIME&DATE       time-and-date           -- +n1 +n2 +n3 +n4 +n5 +n6
+ Return time and date: sec0..59 min0..59 hr0..23 day1..31 mon1..12 yr1998..?
+
+BIN             bin                     fam1 -- fam2
+ Modify file access method fam1 to specify BINary file mode giving fam2.
+CLOSE-FILE      close-file              fileid -- ior
+ Close file identified by fileid.
+CREATE-FILE     create-file             c-addr u fam -- fileid ior
+ Create or truncate file c-addr u with given file access method, return fileid.
+DELETE-FILE     delete-file             c-addr u -- ior
+ Permanently delete file named c-addr u.
+FILE-POSITION   file-position           fileid -- ud ior
+ Return the file position ud of file identified by fileid.
+FILE-SIZE       file-size               fileid -- ud ior
+ Return the file size ud of file identified by fileid.
+INCLUDE-FILE    include-file            i*x fileid -- j*x
+ Store fileid in SOURCE-ID and interpret file identified by fileid.
+INCLUDED        included                i*x c-addr u -- j*x
+ Interpret file named c-addr u. Input source is saved/restored.
+OPEN-FILE       open-file               c-addr u fam -- fileid ior
+ Open file c-addr u with given file access method, return fileid.
+R/O             read-only               -- fam
+ Return a file access method specifying read-only access.
+R/W             read-write              -- fam
+ Return a file access method specifying read/write access.
+READ-FILE       read-file               c-addr u1 fileid -- u2 ior
+ Read max u1 chars from fileid to c-addr, u2 is # chars actually read.
+READ-LINE       read-line               c-addr u1 fileid -- u2 flag ior
+ Read line max u1 chars from fileid to c-addr, u2 is line len, flag false=EOF.
+REPOSITION-FILE reposition-file         ud fileid -- ior
+ Set file position of file identified by fileid to ud.
+RESIZE-FILE     resize-file             ud fileid -- ior
+ Set file size of file identified by fileid to ud.
+W/O             write-only              -- fam
+ Return a file access method specifying write-only access.
+WRITE-FILE      write-file              c-addr u fileid -- ior
+ Write u characters from c-addr to file identified by fileid.
+WRITE-LINE      write-line              c-addr u fileid -- ior
+ Write u characters from c-addr to fileid followed by an EOL sequence.
+
+FILE-STATUS     file-status             c-addr u -- x ior
+ Return implementation defined status x about file named c-addr u.
+FLUSH-FILE      flush-file              fileid -- ior
+ Flush any buffered data and directory information of fileid to disk.
+RENAME-FILE     rename-file             c-addr1 u1 c-addr2 u2 -- ior
+ Rename file named c-addr1 u1 to c-addr2 u2.
+
+.S              dot-s                   --
+ Display the stack depth and all the values on the stack.
+?               question                a-addr --
+ Display the contents of the cell at a-addr.
+DUMP            dump                    addr u --
+ Dump u bytes starting from addr.
+SEE             see                     "<spaces>name" --
+ Display a semi-readable representation of the named word's definition.
+WORDS           words                   --
+ Display names and count of all words in first wordlist in search order.
+
+;CODE           semicolon-code          colon-sys
+ Give most recently CREATEd word the following assembly execution semantics.
+AHEAD           ahead                   -- orig
+ Mark an unconditional forward reference (resolvable by THEN).
+ASSEMBLER       assembler               --
+ Replace the first wordlist in search order with the assembler wordlist.
+BYE             bye                     --
+ Exit to the operating system (DOS).
+CODE            code                    "<spaces>name" --
+ Begin an assembly code definition called "name".
+CS-PICK         c-s-pick                xu .. x1 x0 u -- xu .. x1 x0 u
+ Pick uth item (zero based) to top of control flow stack.
+CS-ROLL         cs-roll                 xu xu-1 .. x0 u -- xu-1 .. x0 xu
+ Rotate u+1 items on the control flow stack so xu is on top.
+EDITOR          editor                  --
+ Replace the first wordlist in search order with the editor wordlist.
+FORGET          forget                  "<spaces>name" --
+ Remove all words from dictionary back to and including name.
+[ELSE]          bracket-else            "<spaces>name ... " --
+ Parse, discard till matching [THEN], including nested [IF]...[ELSE]...[THEN]s.
+[IF]            bracket-if              true | false "<spaces>name ... " --
+ Do nothing if flag true, else parse, discard till matching [ELSE] or [THEN].
+[THEN]          bracket-then            --
+ Do nothing. [THEN] is immediate.
+
+DEFINITIONS     definitions             --
+ Make the top wordlist in the search order the compilation wordlist.
+FORTH-WORDLIST  forth-wordlist          -- wid
+ Return the wordlist identifier for the main FORTH wordlist.
+GET-CURRENT     get-current             -- wid
+ Return the compilation wordlist identifier.
+GET-ORDER       get-order               -- widn .. wid1 n
+ Returns the wordlists widn .. wid1 and # of wordlists n on the search order.
+SEARCH-WORDLIST search-wordlist         c-addr u wid -- 0 | xt 1 | xt -1
+ Search wordlist wid for name c-addr u: 0 not found, xt 1 immed, else xt -1.
+SET-CURRENT     set-current             wid --
+ Set the compilation wordlist to wordlist identified by wid.
+SET-ORDER       set-order               widn .. wid1 n
+ Set n wordlists on search order. wid1 will be search first. If n = -1 do ONLY.
+WORDLIST        wordlist                -- wid
+ Create a new empty wordlist and return its wordlist identifier wid.
+
+ALSO            also                    --
+ Duplicate the top wordlist in the search order.
+FORTH           forth                   --
+ Replace the top wordlist in the search order with FORTH-WORDLIST.
+ONLY            only                    --
+ Set search order to minimum (includes at least FORTH-WORDLIST and SET-ORDER).
+ORDER           order                   --
+ Display wordlists in search order from first searched to last, also CURRENT.
+PREVIOUS        previous                --
+ Remove the top wordlist from search order.
+
+-TRAILING       dash-trailing           c-addr u1 -- c-addr u2
+ Remove trailing spaces from string c-addr u1 giving c-addr u2.
+/STRING         slash-string            c-addr1 u1 n -- c-addr2 u2
+ Move string c-addr1 u1 along n chararacter giving c-addr2 u2.
+BLANK           blank                   c-addr u --
+ Fill character string c-addr u with spaces (BLANKs).
+CMOVE           c-move                  c-addr1 c-addr2 u --
+ Move u characters from c-addr1 to c-addr2, starting with lowest addresses.
+CMOVE>          c-move-up               c-addr1 c-addr2 u --
+ Move u characters from c-addr1 to c-addr2, starting with highest addresses.
+COMPARE         compare                 c-addr1 u1 c-addr2 u2 -- -1 | 0 | 1
+ Compare c-addr1 u1 with c-addr2 u2: -1 str1 < str2, 0 equal, 1 str1 > str2.
+SEARCH          search                  c-addr1 u1 c-adr2 u2 -- c-addr3 u3 flag
+ Search c-addr1 u1 for substring c-adr2 u2, c-addr3 u3 = position if flag true.
+SLITERAL        s-literal               c-addr u --
+ Compile string c-addr u so it'll be pushed at runtime. SLITERAL is immediate.
+
+/COUNTED-STRING slash-counted-string    query i*x: n
+ n is the maximum number of characters allowed in a counted string.
+/HOLD           slash-hold              query i*x: n
+ n is the size in characters of the buffer used by HOLD.
+/PAD            slash-pad               query i*x: n
+ n is the size of the scratch PAD in characters.
+ADDRESS-UNIT-BITS                       query i*x: n
+ n is the number of bits in one byte (address unit).
+CORE            core                    query i*x: flag
+ flag is true if complete CORE wordset is present.
+CORE-EXT        core-ext                query i*x: flag
+ flag is true if CORE extension wordset is present.
+DOUBLE          double                  query i*x: flag
+ flag is true if DOUBLE wordset is present.
+DOUBLE-EXT      double-ext              query i*x: flag
+ flag is true if DOUBLE extension wordset is present.
+EXCEPTION       exception               query i*x: flag
+ flag is true if EXCEPTION wordset is present.
+EXCEPTION-EXT   exception-ext           query i*x: flag
+ flag is true if EXCEPTION extension wordset is present.
+FACILITY        facility                query i*x: flag
+ flag is true if FACILITY wordset is present.
+FACILITY-EXT    facility-ext            query i*x: flag
+ flag is true if FACILITY extension wordset is present.
+FILE            file                    query i*x: flag
+ flag is true if FILE wordset is present.
+FILE-EXT        file-ext                query i*x: flag
+ flag is true if FILE extension wordset is present.
+FLOORED         floored                 query i*x: flag
+ flag is true if floored division is the default.
+MAX-CHAR        max-char                query i*x: u
+ n is the maximum value a character can have.
+MAX-D           max-d                   query i*x: d
+ n is the maximum value a signed double number can have.
+MAX-N           max-n                   query i*x: n
+ n is the maximum value a signed single number can have.
+MAX-U           max-u                   query i*x: u
+ n is the maximum value an unsigned single number can have.
+MAX-UD          max-u-d                 query i*x: ud
+ n is the maximum value an unsigned double number can have.
+RETURN-STACK-CELLS                      query i*x: n
+ n is the maximum number of cells allowed on the return stack.
+SEARCH-ORDER    search-order            query i*x: flag
+ flag is true if SEARCH-ORDER wordset is present.
+SEARCH-ORDER-EXT                        query i*x: flag
+ flag is true if SEARCH-ORDER extension wordset is present.
+STACK-CELLS     stack-cells             query i*x: n
+ n is the maximum number of cells allowed on the data stack.
+STRING          string                  query i*x: flag
+ flag is true if STRING wordset is present.
+STRING-EXT      string-ext              query i*x: flag
+ flag is true if STRING extension wordset is present.
+TOOLS           tools                   query i*x: flag
+ flag is true if TOOLS wordset is present.
+TOOLS-EXT       tools-ext               query i*x: flag
+ flag is true if TOOLS extension wordset is present.
+WORDLISTS       wordlists               query i*x: n
+ n is the maximum number of wordlists allowed in the search order.

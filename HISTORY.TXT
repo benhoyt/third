@@ -1,0 +1,125 @@
+History log for the Third compiler:
+
+Version 0.0
+-----------
+16may1998 - first "mostly bug free" kernel release
+17may1998 - fixed stack comment of >BODY in Third.F
+19may1998 - started history log and version numbering
+19may1998 - coded most of double number wordsets in Double.F
+20may1998 - coded M*/ in Double.F, but no go due to bugs in assembler
+22may1998 - fixed some bugs in ASM86.F, notably in BINARY
+22may1998 - finally got M*/ in Double.F working and factored to get M*/MOD
+23may1998 - moved WORDS DUMP and .S from Third.F to Extend.F
+23may1998 - added ACROSS justifying to WORDS
+23may1998 - added "complements" to the start of Kernel.8
+23may1998 - added mKernel.BAT to quickly assemble the kernel
+23may1998 - added "Press a key..." PAGING to WORDS and DUMP
+23may1998 - factored WIDS out of WORDS
+23may1998 - changed F! F@ etc to L! L@ in Kernel.8 to avoid confusion with
+			floating point F! F@
+23may1998 - changed HEADER, in Kernel.8 to truncate name to 31 chars
+23may1998 - changed REVEAL in Kernel.8 to check if LAST=0 for :NONAME
+23may1998 - added :NONAME in Extend.F
+23may1998 - added and used SAVE-INPUT and RESTORE-INPUT in Kernel.8
+23may1998 - changed INCLUDE-FILE so it frees an error file's line buffer
+24may1998 - added EMIT? EKEY EKEY? and EKEY>CHAR to Facility.F
+24may1998 - changed vectored KEY and KEY? to use EKEYs in Facility.F
+24may1998 - included double number words to Big.F
+24may1998 - coded obselete words into NoNeed.F
+24may1998 - coded string handling words in String.F
+24may1998 - INCLUDEd String.F and NoNeed.F in Big.F
+25may1998 - added CS-PICK and CS-ROLL to NoNeed.F
+25may1998 - added AHEAD to Extend.F and ;CODE to ASM86.F
+25may1998 - added GET-CURRENT and SET-CURRENT to Kernel.8
+25may1998 - added TUCK to Kernel.8 and removed it from Extend.F
+25may1998 - added and used SET-ORDER and GET-ORDER in Kernel.8
+25may1998 - added SEARCH-WORDLIST to Third.F
+25may1998 - changed ALSO PREVIOUS and ORDER to use SET-ORDER and GET-ORDER
+25may1998 - changed SWID in Environ.F to SEARCH-WORDLIST
+25may1998 - added SEARCH-ORDER and SEARCH-ORDER-EXT to Environ.F
+25may1998 - added ENVIRONMENT? to Third.F and deleted Environ.F
+25may1998 - added WARNINGS and redefinition checking to HEADER, in Kernel.8
+25may1998 - changed FLINE and THROW in Kernel.8 to display numbers in decimal
+25may1998 - added big table for THROW error messages to Kernel.8
+25may1998 - changed LCHECK in ASM86.F to ABORT" on unresolved labels
+25may1998 - added FLUSH-FILE FILE-STATUS and RENAME-FILE to Kernel.8
+25may1998 - fixed >IOR and removed +IOR in Kernel.8
+25may1998 - coded ANSCheck.F to display undefined ANS words
+25may1998 - added new entries to ENV?WID wordlist in Big.F
+26may1998 - changed $: $ to L: L in ASM86.F to avoiding conflict with hex
+			number $ and changed Double.F Facility.F and String.F accordingly
+07jun1998 - added SENSITIVE to Kernel.8 and removed SCMP as a Forth word
+07jun1998 - added various documentation to Kernel.8
+07jun1998 - fixed repicmpsb in Kernel.8 so it works on zero-length strings
+09jun1998 - removed version numbers from .F files
+09jun1998 - froze Third version 0.0
+
+Version 0.1
+-----------
+09jun1998 - began work on Third version 0.1
+09jun1998 - started the metacompiler Meta.F heavily based on eForth's
+14jun1998 - added TC@ TC, etc to ASM86.F to allow for assembling to a target
+14jun1998 - changed .WID in Third.F to display ??? when wordlist has no name
+14jun1998 - began work on Kernel.F (Forth version to replace Kernel.8)
+26jun1998 - saved BP in AT-XY DARK in Facility.F: some silly BIOSes change it
+26jun1998 - added GET-XY to Facility.F
+28jun1998 - fixed bug in WR/M, in ASM86.F where it used SIZE, instead of W,
+28jun1998 - fixed bug in BINARY mem,immed mode in ASM86.F
+01jul1998 - added QAD and RAD (like PAD) to Kernel.8 for >ASCIIZ etc
+01jul1998 - coded Spawn.F (DOS shell routines SPAWN and SHELL)
+01jul1998 - changed WR/M, and added SR/M, in ASM86.F to fix a bug
+01jul1998 - fixed SHIFT in ASM86.F and changed the syntax a little
+02jul1998 - got my metacompiled system Kernel.F going (seems to work :-)
+02jul1998 - added SMALLER to Kernel.8 to facilitate SPAWNing
+02jul1998 - fixed CS references in DSPAWN in Spawn.F
+03jul1998 - added MACRO END-MACRO to ASM86.F and label nesting as required
+03jul1998 - added ADDR ADDR> to Extend.F (often needed in assembly)
+03jul1998 - froze Third version 0.1
+
+Version 0.2
+-----------
+03jul1998 - began work on Third version 0.2 (metacompiled from Kernel.F)
+03jul1998 - made ACCEPT a DEFERred word defaulting to KACCEPT in Kernel.F
+04jul1998 - fixed INCLUDED to close files instead of INCLUDE-FILE in Kernel.F
+04jul1998 - moved Third.F to Kernel.F and Environ.F
+04jul1998 - moved ENVIRONMENT? stuff from Big.F to Environ.F
+04jul1998 - included Spawn and Environ.F in Big.F
+04jul1998 - added DOES> to Meta.F
+04jul1998 - removed ALIGNING flag from Meta.F (wouldn't work anyway)
+04jul1998 - added Quick.Txt and Quick.F
+04jul1998 - moved .( and MPTR from Extend.F to Kernel.F
+04jul1998 - added cool messages to Kernel.F and Big.F :-)
+05jul1998 - coded MaQuick.F to make quick reference index Quick.Dat
+05jul1998 - changed Quick.F to use Quick.Dat
+06jul1998 - wrote some system documentation in Notes.Txt
+07jul1998 - changed C" in NoNeed.F to use SLITERAL (shouldn't use C" anyway)
+08jul1998 - coded a fairly nice but simple SEE in See.F
+08jul1998 - included See.F in Big.F
+08jul1998 - moved AGAIN from Extend.F to Kernel.F
+08jul1998 - added FORGET to NoNeed.F
+09jul1998 - added DOES> capability to SEE in See.F
+09jul1998 - changed CREATE-FILE in Kernel.F so it used the file access method
+13jul1998 - added PROMPT as a DEFER in Kernel.F
+14jul1998 - added WIDE and HIGH to Extend.F and changed PAGER and ?CR to suit
+14jul1998 - changed DARK in Facility.F to use any screen size
+14jul1998 - changed BOOTER in Kernel.F from an EXECUTEd VARIABLE to a DEFER
+14jul1998 - added LAST-XT to Kernel.F
+14jul1998 - added CHAINED (for BOOTER and the like) to Extend.F
+17jul1998 - fixed D2* bug in Double.F (and made it faster)
+20jul1998 - fixed $ in Extend.F so it would not EVALUATE (and find "hex" words)
+24jul1998 - changed SOURCE! to DETAB in Kernel.F (for EVALUATE QUERY etc)
+25jul1998 - fixed FATTRIB and FRENAME in Kernel.F (missing # in MOVs)
+22sep1998 - fixed LENGTH in Kernel.F to work with Unix delims properly
+31oct1998 - fixed FILL in Kernel.F so it set ES=DS, oops! :-)
+26feb1999 - changed SAVE-INPUT etc in Kernel.F to save and restore PARSED
+26feb1999 - fixed ERR-WORD in Kernel.F so it didn't print more than 256 spaces
+26feb1999 - froze Third version 0.2
+
+Version 0.3
+-----------
+26feb1999 - began work on Third version 0.3
+07feb2000 - "un-fixed" $ in Extend.F so it would handle "$ ." etc properly
+07feb2000 - changed DETAB in Kernel.F so it changed low ASCII, not just tab
+07feb2000 - added THROW-MSG to Kernel.F
+20jun2000 - fixed bug in READ-LINE in Kernel.F so it doesn't give u2>u1
+10nov2000 - made INCLUDE-FILE in Kernel.F so it closed the file as per ANS

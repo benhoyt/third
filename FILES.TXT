@@ -1,0 +1,56 @@
+Third files listing and descriptions file.
+
+Stuff in the "root" Third directory:
+====================================
+BER\            Berwyn Hoyt's Third add-ons
+MISC\           miscellaneous examples and test code
+asm86.f         8086 Forth assembler
+big.f           Forth source to make Big.COM
+double.f        double number arithmetic
+environ.f       environment queries
+extend.f        some CORE-EXT words and other extensions
+facility.f      facility and terminal words
+files.txt       take three guesses...
+history.txt     Third history log
+kernel.com      Third kernel executable
+kernel.f        kernel source code
+mber.bat        batch file to the Ber system (from Big.COM)
+mbig.bat        batch file to the Big system (from Kernel.COM)
+meta.f          Third metacompiler
+mkernel.bat     batch file to make the Kernel (must have Big.COM already)
+mquick.bat      batch file to update Quick.DAT from Quick.TXT
+mquick.f        source code to make the Quick data file
+noneed.f        words you shouldn't need but are included for completeness
+quick.f         source for the Quick help viewer
+quick.txt       the Quick help file (don't edit randomly :-)
+readme.txt      general stuff about Third
+see.f           source code for simple decompiler
+spawn.f         source for DOS shell routines
+string.f        source for string manipulations
+todo.txt        Third's wonderful to-do list
+
+Stuff in the BER\ directory:
+============================
+accept.f        improved ACCEPT keyboard string input
+ascii.f         the standard "low ASCII" table
+bersetup.f      Berwyn's setup and make file
+casmauto.f      some program to shell and assemble stuff
+color.f         BIOS video routines
+d-muldiv.f      double number multiply and divide
+debug.f         use DEBUG as a disassembler for Third
+dot.f           more number display routines
+mstimer.f       BIOS microsecond (really millisecond) timer
+nstimer.f       calibrated nanosecond timer
+random.f        random number generator
+random1.f       better random number generator
+redirect.f      I/O redirection
+s19.f           S19 file loader
+serial.f        serial port I/O
+sstruct.f       stacked structures
+timer32.f       microsecond hardware timer
+
+Stuff in the MISC\ directory:
+=============================
+filter.f        silly little filter
+gfx.f           not really graphics, but...
+nibbles.f       another half hour of useless coding
