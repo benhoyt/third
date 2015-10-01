@@ -226,7 +226,7 @@ In Third, an execution token is a pointer to the word's machine code
 (a colon definition xt is a pointer to a CALL instruction).
 
 seg and ofs items are used by Third's far memory operators to make
-use of the Intel segment and offset architechture.
+use of the Intel segment and offset architecture.
 
 An I/O result (used mainly by FILE words) is zero if the operation
 was successful. If the operation was not successful, the ior is an
